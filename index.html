@@ -16,42 +16,62 @@
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row border-bottom border-dark" style="background-color: lightgray;">
-      <div class="col-lg-12 p-3">
-        <div class="btn btn-group">
-          <button class="btn btn-sm colourpalette p-3 rounded border-dark" style="background-color: rgb(255, 255, 255);"
-            id="palette.white"></button>
-          <button class="btn btn-sm colourpalette p-3 rounded border-dark" style="background-color: rgb(0, 0, 0);"
-            id="palette.black"></button>
-          <button class="btn btn-sm colourpalette p-3 rounded border-dark" style="background-color: rgb(255, 0, 0);"
-            id="palette.red"></button>
-          <button class="btn btn-sm colourpalette p-3 rounded border-dark" style="background-color: rgb(0, 255, 0);"
-            id="palette.lightgreen"></button>
-          <button class="btn btn-sm colourpalette p-3 rounded border-dark" style="background-color: rgb(20, 77, 17);"
-            id="palette.darkgreen"></button>
-          <button class="btn btn-sm colourpalette p-3 rounded border-dark" style="background-color: rgb(0, 0, 255);"
-            id="palette.blue"></button>
-          <button class="btn btn-sm colourpalette p-3 rounded border-dark" style="background-color: rgb(139,69,19);"
-            id="palette.brown"></button>
-          <button class="btn btn-sm p-2 rounded border-dark" id="rgb">RGB</button>
-        </div>
-        <input class="align-middle" type="range" min="1" max="100" value="50" id="thickness">
-        <button class="btn btn-sm p-2 rounded border-dark" id="pen-thickness">50</button>
-        <div class="float-right p-1">
-          <b class="text-center">Current colour: </b>
-          <div class="colourpalette p-3 align-middle rounded" style="background-color: rgb(0, 0, 0)" id="current"></div>
-          <div class="btn-group" role="group">
-            <button class="btn btn-danger" onclick="Reset();">Clear canvas</button>
-            <button class="btn btn-success" onclick="saveCanvas('myCanvas', 'png');">Save</button>
-          </div>
+  <nav class="navbar navbar-dark bg-dark" id="controls">
+    <form class="form-inline" id="hexControls">
+      <div class="input-group col-auto pl-0">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-info" onclick="$('.toggle').toggle();">Toggle controls</button>
+          <button type="button" class="btn btn-danger toggle" onclick="Reset();">Reset</button>
+          <button type="button" class="btn btn-success toggle" onclick="saveCanvas('myCanvas', 'png');">Save</button>
         </div>
       </div>
-    </div>
-  </div>
-  <br>
-  <div id="sketch">
+      <div class="input-group col-auto pl-0 toggle">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Red</div>
+        </div>
+        <input class="form-control w-25" type="number" id="hexR" value="0" min="0" max="255" />
+      </div>
+      <div class="input-group col-auto pl-0 toggle">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Green</div>
+        </div>
+        <input class="form-control w-25" type="number" id="hexG" value="0" min="0" max="255" />
+      </div>
+      <div class="input-group col-auto pl-0 toggle">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Blue</div>
+        </div>
+        <input class="form-control w-25" type="number" id="hexB" value="0" min="0" max="255" />
+      </div>
+      <div class="input-group col-auto pl-0 toggle">
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm colourpalette p-3 pr-4 rounded border-light" style="background-color: rgb(255, 255, 255);" id="palette.white"></button>
+          <button type="button" class="btn btn-sm colourpalette p-3 pr-4 rounded border-light" style="background-color: rgb(0, 0, 0);" id="palette.black"></button>
+          <button type="button" class="btn btn-sm colourpalette p-3 pr-4 rounded border-light" style="background-color: rgb(255, 0, 0);" id="palette.red"></button>
+          <button type="button" class="btn btn-sm colourpalette p-3 pr-4 rounded border-light" style="background-color: rgb(0, 255, 0);" id="palette.lightgreen"></button>
+          <button type="button" class="btn btn-sm colourpalette p-3 pr-4 rounded border-light" style="background-color: rgb(20, 77, 17);" id="palette.darkgreen"></button>
+          <button type="button" class="btn btn-sm colourpalette p-3 pr-4 rounded border-light" style="background-color: rgb(0, 0, 255);" id="palette.blue"></button>
+          <button type="button" class="btn btn-sm colourpalette p-3 pr-4 rounded border-light" style="background-color: rgb(139,69,19);" id="palette.brown"></button>
+          <button type="button" class="btn btn-sm p-2 ml-1 rounded bg-light border-light" id="rgb">RGB</button>
+        </div>
+      </div>
+      <div class="input-group col-auto pl-0 toggle">
+        <input class="align-middle form-control-range w-75" type="range" min="1" max="100" value="50" id="thickness">
+        <button type="button" class="btn btn-sm p-2 ml-1 rounded border-light" id="pen-thickness">50</button>
+      </div>
+      <div class="input-group col-auto pl-0 toggle">
+          <b class="text-center text-white p-2 mr-1">Current colour: </b>
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm colourpalette p-3 pr-4 rounded" style="background-color: rgb(0, 0, 0)" id="current"></div>
+          </div>
+      </div>
+    </form>
+  </nav>
+  <div class="container-fluid">
+    <br />
+    <div id="sketch">
 
+    </div>
   </div>
 </body>
 
