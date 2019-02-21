@@ -1,13 +1,17 @@
 // global variables
-pencolour = "rgb(0, 0, 0)";
+var hexR = 0;
+var hexG = 0;
+var hexB = 0;
+var pencolour = "rgb(0, 0, 0)";
 var penthickness = 50;
+
 var rgbToggled = false;
+var colourBeforeToggle = "";
 
 // event listeners
 $(document).ready(function() {
   $(".colourpalette").click(function() {
-    pencolour = $(this).css('background-color');
-    ChangeColour(pencolour);
+    ChangeColour($(this).css('background-color'));
   });
 
   $('#thickness').change(function() {
@@ -17,16 +21,21 @@ $(document).ready(function() {
 
   $("#rgb").on('click', function() {
     if (!rgbToggled) {
-      setInterval(function () { generateRandomRGB(); }, 250);
       rgbToggled = true;
-      $(this).css('background-color', 'light-grey');
-      console.log($(this))
+      colourBeforeToggle = pencolour;
     }
     else {
       rgbToggled = false; 
-      $(this).css('background-color', 'white');
-      pencolour = "rgb(0, 0, 0)";     
+      ChangeColour(colourBeforeToggle);    
     }
+  });
+
+  $("#hexControls").on('change', function() {
+    hexR = $("#hexR").val();    
+    hexG = $("#hexG").val();
+    hexB = $("#hexB").val();
+
+    ChangeColour("rgb(" + hexR + ", " + hexG + ", " + hexB + ")");
   });
 });
 
@@ -34,10 +43,6 @@ $(document).ready(function() {
 function setup() {
   createCanvas(windowWidth, windowHeight).parent('sketch');
   noStroke();
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
@@ -48,18 +53,25 @@ function draw() {
 }
 
 // helper functions
-function ChangeColour(pencolour) {
-  $("#current").css('background-color', pencolour);
-  $("#current").css('border-color', pencolour);
+function ChangeColour(newcolour) {
+  pencolour = newcolour;
+  $("#current").css('background-color', newcolour);
+  $("#current").css('border-color', newcolour);
 }
 
 function Reset() {
   background(255, 255, 255);
-  pencolour = "rgb(0, 0, 0)";
+
   penthickness = 50;
-  ChangeColour('black');
+  ChangeColour("rgb(0, 0, 0)");
+  rgbToggled = false;
+
   $("#thickness").val('50');
   $("#pen-thickness").html('50');
+
+  $("#hexR").val('0');    
+  $("#hexG").val('0');
+  $("#hexB").val('0');
 }
 
 function generateRandomRGB() {
@@ -73,6 +85,8 @@ function generateRandomRGB() {
     + ")";
 
   if (rgbToggled) {
-      pencolour = randomRGB; 
+      ChangeColour(randomRGB)
   }
 }
+
+setInterval(function () { generateRandomRGB(); }, 250);
